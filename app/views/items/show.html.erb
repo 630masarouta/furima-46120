@@ -26,19 +26,18 @@
     </div>
 
     <%# ログイン状態によって、ボタン表示を切り替える %>
-    <% if user_signed_in? && current_user.id == @item.user_id %>
-      <%# ログインユーザーが出品者の場合、編集・削除ボタンを表示する（まだ機能はしない） %>
+    <% if user_signed_in? %>
+      <%# ログインしている場合 %>
+      <% if current_user.id == @item.user_id %>
+        <%# ログインユーザーが出品者の場合、編集・削除ボタンを表示する %>
       <%= link_to "商品の編集", "#", class: "item-red-btn" %>
       <p class="or-text">or</p>
       <%= link_to "削除", "#", class:"item-destroy" %>
-    <% elsif user_signed_in? %>
-
-    <%# 商品が売れていない場合はこちらを表示しましょう %>
-    <%= link_to "購入画面に進む", "#" ,class:"item-red-btn"%>
-    <%# //商品が売れていない場合はこちらを表示しましょう %>
+    <% else %>
+        <%# ログインユーザーが出品者でない場合、購入ボタンを表示する %>
+        <%= link_to "購入画面に進む", "#", class: "item-red-btn" %>
+      <% end %>
     <% end %>
-
-    <%# //ログインしているユーザーと出品しているユーザーが、同一人物の場合と同一人物ではない場合で、処理を分けましょう %>
 
     <div class="item-explain-box">
       <span><%= @item.description %></span>
@@ -106,9 +105,7 @@
       後ろの商品 ＞
     </a>
   </div>
-  <%# 詳細ページで表示されている商品のカテゴリー名を表示しましょう %>
   <a href="#" class="another-item"><%= @item.category.name %>をもっと見る</a>
-  <%# //詳細ページで表示されている商品のカテゴリー名を表示しましょう %>
 </div>
 
 <%= render "shared/footer" %>
