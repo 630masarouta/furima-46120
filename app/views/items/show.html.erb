@@ -28,11 +28,11 @@
     <%# ログイン状態によって、ボタン表示を切り替える %>
     <% if user_signed_in? %>
       <%# ログインしている場合 %>
-      <% if current_user.id == @item.user_id %>
+      <% if current_user == @item.user %>
         <%# ログインユーザーが出品者の場合、編集・削除ボタンを表示する %>
-      <%= link_to "商品の編集", edit_item_path(@item.id), class: "item-red-btn" %>
+      <%= link_to "商品の編集", edit_item_path(@item), class: "item-red-btn" %>
       <p class="or-text">or</p>
-      <%= link_to "削除", "#", class:"item-destroy" %>
+      <%= button_to "削除", item_path(@item), method: :delete, class: "item-destroy" %>
     <% else %>
         <%# ログインユーザーが出品者でない場合、購入ボタンを表示する %>
         <%= link_to "購入画面に進む", "#", class: "item-red-btn" %>
