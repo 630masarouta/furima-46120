@@ -50,7 +50,6 @@ belongs_to :user
 belongs_to :item
 has_one :address
 
-
 ## addresses テーブル
 
 | Column        | Type       | Options                        |
