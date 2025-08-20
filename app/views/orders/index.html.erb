@@ -13,7 +13,7 @@
           <%= @item.name %>
         </h2>
         <div class='buy-item-price'>
-          <p class='item-price-text'>¥<%= @item.price.to_s(:delimited) %></p>
+          <p class='item-price-text'>¥<%= number_with_delimiter(@item.price) %></p>
           <p class='item-price-sub-text'><%= '配送料負担' %></p>
         </div>
       </div>
@@ -26,12 +26,15 @@
         支払金額
       </h1>
       <p class='item-payment-price'>
-        ¥<%= @item.price.to_s(:delimited) %>
+        ¥<%= number_with_delimiter(@item.price) %>
       </p>
     </div>
     <%# /支払額の表示 %>
 
     <%= form_with model: @order_form, url: item_orders_path(@item.id), id: 'charge-form', class: 'transaction-form-wrap', local: true do |f| %>
+
+    <%= render 'shared/error_messages', model: @order_form %>
+
     <%# カード情報の入力 %>
     <div class='credit-card-form'>
       <h1 class='info-input-haedline'>
@@ -100,7 +103,7 @@
           <label class="form-text">番地</label>
           <span class="indispensable">必須</span>
         </div>
-        <%= f.text_field :addresses, class:"input-default", id:"addresses", placeholder:"例）青山1-1-1"%>
+        <%= f.text_field :address, class:"input-default", id:"address", placeholder:"例）青山1-1-1"%>
       </div>
       <div class="form-group">
         <div class='form-text-wrap'>

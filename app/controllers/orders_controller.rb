@@ -27,7 +27,7 @@ class OrdersController < ApplicationController
 
   def order_params
     # 今回は決済処理を実装しないため、:tokenは含めない
-    params.require(:order_form).permit(:postal_code, :prefecture_id, :city, :addresses, :building, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id])
+    params.require(:order_form).permit(:postal_code, :prefecture_id, :city, :address, :building, :phone_number).merge(user_id: current_user.id, item_id: @item.id)
   end
 
   def redirect_if_sold_out_or_owner
