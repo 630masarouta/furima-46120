@@ -16,7 +16,8 @@ class OrderForm
   def save
     ActiveRecord::Base.transaction do
       order = Order.create!(user_id: user_id, item_id: item_id)
-      Address.create!(postal_code: postal_code, prefecture_id: prefecture_id, city: city, addresses: address, building: building, phone_number: phone_number, order_id: order.id)
+      Address.create!(postal_code: postal_code, prefecture_id: prefecture_id, city: city, addresses: address, building: building,
+                      phone_number: phone_number, order_id: order.id)
     end
   end
 end
