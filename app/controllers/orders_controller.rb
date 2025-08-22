@@ -11,6 +11,7 @@ class OrdersController < ApplicationController
   def create
     @order_form = OrderForm.new(order_params)
     if @order_form.valid?
+      pay_item
       @order_form.save
       redirect_to root_path
     else
@@ -27,11 +28,20 @@ class OrdersController < ApplicationController
 
   def order_params
     # 今回は決済処理を実装しないため、:tokenは含めない
-    params.require(:order_form).permit(:postal_code, :prefecture_id, :city, :address, :building, :phone_number).merge(user_id: current_user.id, item_id: @item.id)
+    params.require(:order_form).permit(:postal_code, :prefecture_id, :city, :address, :building, :phone_number).merge(user_id: current_user.id, item_id: @item.id, token: params[:token])
   end
 
   def redirect_if_sold_out_or_owner
     # 商品が既に購入されている場合、または出品者が自分で購入しようとした場合にリダイレクト
     redirect_to root_path if @item.order.present? || current_user.id == @item.user_id
+  end
+
+  def pay_item
+      Payjp.api_key = ENV['PAYJP_SECRET_KEY']
+      Payjp::Charge.create(
+        amount: @item.price,
+        card: order_params[:token],
+        currency: 'jpy'
+      )
   end
 end
