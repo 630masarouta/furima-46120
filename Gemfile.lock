@@ -419,6 +419,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   mysql2 (~> 0.5)
+  nokogiri
   payjp
   pry-rails
   puma (>= 5.0)
