@@ -9,7 +9,7 @@ gem "rails", "~> 7.1.0"
 gem "sprockets-rails"
 
 # Nokogiriのプラットフォーム固有の問題を回避するために追加
-gem 'nokogiri', platform: :ruby
+gem "nokogiri", force_ruby_platform: true
 
 # Use mysql as the database for Active Record
 gem "mysql2", "~> 0.5"
